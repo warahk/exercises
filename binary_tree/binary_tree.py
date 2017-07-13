@@ -31,7 +31,7 @@ class BinaryTree:
     def _delete(self, value, current, parent=None):
         '''recursive method that walks tree looking for node to delete'''
         if current.key == value:
-            # if leaf, change parent left/right to None
+            # case 1: leaf, change parent left/right to None
             if current.left is None and current.right is None:
                 if parent is None:
                     self.root = None
@@ -42,7 +42,7 @@ class BinaryTree:
                     if parent.right is not None:
                         if parent.right.key == current.key:
                             parent.right = None
-            # one child, move up child
+            # case 2: one child, move up child
             elif current.left is None:
                 current.key = current.right.key
                 current.left = current.right.left
@@ -51,7 +51,7 @@ class BinaryTree:
                 current.key = current.left.key
                 current.left = current.left.left
                 current.right = current.left.right
-            # if two children, replace current with min from right subtree
+            # case 3: two children, replace current with min from right subtree
             else:
                 min_max = self._localMin(current.right)
                 current.key = min_max
