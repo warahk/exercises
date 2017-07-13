@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 '''Simple binary tree with traversal'''
 
 class Node:
@@ -13,20 +14,18 @@ class BinaryTree:
     def __init__(self):
         self.root = None
     
-    def _add(self, value, current):
+    def _insert(self, value, current):
         '''recursively traveses tree to add new node'''
         if value > current.key:
             if current.right is None:
-                #print "adding %s right of %s" % (value, current)
                 current.right = Node(value)
             else:
-                self._add(value, current.right)
+                self._insert(value, current.right)
         else:
             if current.left is None:
-                #print "adding %s left of %s" % (value, current)
                 current.left = Node(value)
             else:
-                self._add(value, current.left)
+                self._insert(value, current.left)
     
     def _delete(self, value, current, parent=None):
         '''recursive method that walks tree looking for node to delete'''
@@ -71,31 +70,23 @@ class BinaryTree:
     def _inOrder(self, current):
         '''in-order tree traversal'''
         if current is not None:
-            for left in self._inOrder(current.left):
-                yield left
+            yield from self._inOrder(current.left)
             yield current
-            for right in self._inOrder(current.right):
-                yield right
+            yield from self._inOrder(current.right)
 
     def _preOrder(self, current):
         '''pre-order tree traversal'''
         if current is not None:
             yield current
-            for left in self._preOrder(current.left):
-                yield left
-            for right in self._preOrder(current.right):
-                yield right
+            yield from self._preOrder(current.left)
+            yield from self._preOrder(current.right)
+                
 
     def _postOrder(self, current):
         '''pre-order tree traversal'''
         if current is not None:
-            for left in self._postOrder(current.left):
-                #print "recurse on left %s, child of %s " % (current.left, current)
-                yield left
-            for right in self._postOrder(current.right):
-                #print "recurse on right %s, child of %s " % (current.right, current)
-                yield right
-            #print "yield ", current
+            yield from self._postOrder(current.left)
+            yield from self._postOrder(current.right)
             yield current
     
     def _search(self, value, current):
@@ -109,12 +100,12 @@ class BinaryTree:
         else:
             return self._search(value, current.left) 
 
-    def add(self, value):
+    def insert(self, value):
         '''public api for add method'''
         if self.root is None:
             self.root = Node(value)
         else:
-            self._add(value, self.root)
+            self._insert(value, self.root)
     
     def inOrder(self):
         '''in-order tree traversal'''
@@ -143,27 +134,27 @@ class BinaryTree:
     
 if __name__ == "__main__":
     # create tree
-    print "Creating tree..."
+    print("Creating tree...")
     bt = BinaryTree()
     values = [4, 2, 6, 1, 7, 3, 5]
-    print "values: ", values
-    for v in values: bt.add(v)
+    print("values: ", values)
+    for v in values: bt.insert(v)
     # traverse tree
-    print "Traversals..."
-    print "in-order: ",  list(bt.inOrder())
-    print "pre-order: ", list(bt.preOrder())
-    print "post-order: ", list(bt.postOrder())
+    print("Traversals...")
+    print("in-order: ",  list(bt.inOrder()))
+    print("pre-order: ", list(bt.preOrder()))
+    print("post-order: ", list(bt.postOrder()))
     # search tree
-    print "Search..."
+    print("Search...")
     for v in [4, 6, 10]: 
         if bt.search(v):
-            print "%s in tree" % v
+            print("%s in tree" % v)
         else:
-            print "%s not in tree" % v
+            print("%s not in tree" % v)
     # deletion
-    print "Deletion..."
+    print("Deletion...")
     for v in [1, 2, 4]:
-        print "deleting: ", v
+        print("deleting: ", v)
         bt.delete(v)
-        print "in-order: ", list(bt.inOrder())
+        print("in-order: ", list(bt.inOrder()))
         

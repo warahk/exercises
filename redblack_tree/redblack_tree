@@ -1,0 +1,7 @@
+#!/usr/bin/env python3
+from redblack_tree import Node, RedBlackTree
+
+if __name__ == "__main__":
+    rbt = RedBlackTree()
+    rbt.insert(4)
+    print(list(rbt.inOrder()))
