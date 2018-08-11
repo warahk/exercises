@@ -32,15 +32,15 @@ Not sure if this is platform independent because of the command being used withi
 Result: The custom messages should appear in the terminal where the server was launched.
 
 
-```
-NOTE:
-I wrote this code for python 2.7 as instructed.  I used a #!/usr/bin/python2.7 shebang in my source files, if this path does not match your system it may need to be modified.
-```
 
-```
-NOTE #2:
+###NOTE:
+I wrote this code for python 2.7 as instructed.  I used a #!/usr/bin/python2.7 shebang in my source files, if this path does not match your system it may need to be modified.
+
+
+
+###NOTE #2:
 I'd be happy to modify this project to use multiprocessing.process instead of popen if desired.  Just wanted to have something for you guys before EOD today!
-```
+
 
 
 
